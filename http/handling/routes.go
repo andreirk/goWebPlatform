@@ -11,6 +11,7 @@ type HandlerEntry struct {
 	Prefix  string
 	Handler interface{}
 }
+
 type Route struct {
 	httpMethod    string
 	prefix        string

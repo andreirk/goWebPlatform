@@ -3,6 +3,7 @@ package placeholder
 import (
 	"sync"
 	"webPlatform/http"
+	"webPlatform/http/handling"
 	"webPlatform/pipeline"
 	"webPlatform/pipeline/basic"
 	"webPlatform/services"
@@ -14,7 +15,11 @@ func createPipeline() pipeline.RequestPipeline {
 		&basic.LoggingComponent{},
 		&basic.ErrorComponent{},
 		&basic.StaticFileComponent{},
-		&SimpleMessageComponent{},
+		//&SimpleMessageComponent{},
+		handling.NewRouter(
+			handling.HandlerEntry{"", NameHandler{}},
+			handling.HandlerEntry{"", DayHandler{}},
+		),
 	)
 }
 func Start() {
