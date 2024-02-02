@@ -4,6 +4,7 @@ import (
 	"webPlatform/config"
 	"webPlatform/logging"
 	"webPlatform/templates"
+	"webPlatform/validation"
 )
 
 func RegisterDefaultServices() {
@@ -25,6 +26,14 @@ func RegisterDefaultServices() {
 		func(c config.Configuration) templates.TemplateExecutor {
 			templates.LoadTemplates(c)
 			return &templates.LayoutTemplateProcessor{}
+		})
+	if err != nil {
+		panic(err)
+	}
+
+	err = AddSingleton(
+		func() validation.Validator {
+			return validation.NewDefaultValidator(validation.DefaultValidators())
 		})
 	if err != nil {
 		panic(err)
